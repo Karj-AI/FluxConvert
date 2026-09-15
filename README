@@ -1,88 +1,30 @@
-🌐 TCP Unit Conversion System
+<h1 align="center">🌐 TCP Unit Conversion System</h1>
 
-A lightweight multithreaded TCP client-server system built in Python that performs unit conversions over a custom text-based protocol.
+<p align="center">
+  A lightweight multithreaded TCP client-server system built in Python for unit conversion using a custom text-based protocol.
+</p>
 
-🧠 Tech Stack
-Language: Python 3.10+
-Libraries: socket, threading (standard library only)
-Architecture: TCP Client–Server (Multithreaded)
-📁 Project Structure
-Server.py   → TCP server (handles multiple clients via threads)
-Client.py   → Interactive TCP client
-Tests.py    → Automated test suite (21 test cases)
-⚙️ How to Run
-▶️ 1. Check Python Version
+---
+
+### 🧠 Tech Stack
+
+- Python 3.10+
+- Standard Library Only (`socket`, `threading`)
+- TCP Client–Server Architecture
+- Multithreaded Request Handling
+
+---
+
+### 📁 Project Structure
+
+- `Server.py` → TCP server (handles clients via threads)
+- `Client.py` → interactive TCP client
+- `Tests.py` → automated test suite + error validation
+
+---
+
+### ⚙️ How to Run
+
+#### 🐍 Check Python Version
+```bash
 python3 --version
-🖥️ 2. Run the Server
-python3 Server.py
-
-📍 Starts server on:
-
-0.0.0.0:5000
-Host & port can be changed via constants in Server.py
-Runs until stopped with Ctrl + C
-Handles multiple clients concurrently (thread-per-client model)
-💻 3. Run the Client
-
-In a new terminal:
-
-python3 Client.py
-Connects to localhost:5000 by default
-Supports multiple simultaneous clients
-Interactive CLI-based requests
-🧪 4. Run Automated Tests
-
-With server running:
-
-python3 Tests.py
-Executes 21 predefined test cases
-Covers valid inputs + error handling
-🔄 Supported Command Format
-CONVERT <CATEGORY> <FROM_UNIT> <TO_UNIT> <VALUE>
-Category	Units	Example
-TEMP	C, F	CONVERT TEMP C F 25
-LENGTH	KM, MI	CONVERT LENGTH KM MI 10
-WEIGHT	KG, LB	CONVERT WEIGHT KG LB 5
-CURRENCY	USD, CAD, EUR, GBP	CONVERT CURRENCY USD CAD 100
-Commands are case-insensitive
-Type EXIT or QUIT to disconnect client
-💬 Example Session
-Enter request: CONVERT TEMP C F 25
-Server response: RESULT 77.00 F
-
-Enter request: CONVERT CURRENCY USD CAD 100
-Server response: RESULT 137.00 CAD
-
-Enter request: CONVERT FOO C F 25
-Server response: ERROR Invalid category
-
-Enter request: EXIT
-Connection closed.
-❌ Error Handling
-Condition	Response
-Unknown category	ERROR Invalid category
-Invalid unit for category	ERROR Invalid unit
-Non-numeric value	ERROR Invalid numeric value
-Malformed request	ERROR Malformed request
-📊 Server Logging
-
-Every connection and request is logged:
-
-Client connected: ('127.0.0.1', 55842)
-Request: CONVERT TEMP C F 25 → RESULT 77.00 F
-Client disconnected: ('127.0.0.1', 55842)
-⚠️ Known Limitations
-Host/port are hardcoded constants
-Currency rates are static (no live API)
-Assumes one request per TCP packet (recv-safe design)
-No graceful shutdown messaging to clients
-No authentication or encryption (educational use only)
-🚀 Summary
-
-A simple but powerful networked conversion engine demonstrating:
-
-TCP socket programming
-Multithreading
-Custom protocol design
-Client-server architecture
-Automated testing
