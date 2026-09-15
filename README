@@ -1,30 +1,117 @@
 <h1 align="center">🌐 TCP Unit Conversion System</h1>
 
 <p align="center">
-  A lightweight multithreaded TCP client-server system built in Python for unit conversion using a custom text-based protocol.
+A lightweight multithreaded TCP client-server system built in Python that performs real-time unit conversions using a custom text-based protocol.
+</p>
+
+<p align="center">
+Built with <b>Python sockets + threading</b> to simulate a simple distributed networked system.
 </p>
 
 ---
 
-### 🧠 Tech Stack
+## ⚙️ Features
 
-- Python 3.10+
-- Standard Library Only (`socket`, `threading`)
-- TCP Client–Server Architecture
-- Multithreaded Request Handling
-
----
-
-### 📁 Project Structure
-
-- `Server.py` → TCP server (handles clients via threads)
-- `Client.py` → interactive TCP client
-- `Tests.py` → automated test suite + error validation
+- 🧵 Multithreaded TCP server — handles multiple clients concurrently using threads  
+- 📡 Custom protocol design — structured CONVERT command format  
+- 🔁 Real-time unit conversion engine — supports multiple categories  
+- 🧪 Automated test suite — validates correctness + edge cases (21 tests)  
+- 🖥️ Interactive CLI client — supports multiple simultaneous users  
+- 📊 Server logging system — logs all connections, requests, and responses  
 
 ---
 
-### ⚙️ How to Run
+## 🧠 Tech Stack
 
-#### 🐍 Check Python Version
+| Layer | Technology |
+|------|------------|
+| Language | Python 3.10+ |
+| Networking | socket |
+| Concurrency | threading |
+| Architecture | TCP Client–Server |
+
+---
+
+## 📁 Project Structure
+
+Server.py → multithreaded TCP server  
+Client.py → interactive CLI client  
+Tests.py → automated test suite (21 cases)  
+
+---
+
+## 🚀 Getting Started
+
+### Check Python Version
 ```bash
 python3 --version
+Run Server
+python3 Server.py
+
+Server runs on:
+0.0.0.0:5000
+
+Host/port configured via HOST and PORT constants
+Handles multiple clients via threading
+Runs until Ctrl + C
+
+On shutdown, connected clients are given a short grace window (~1.2s) before termination.
+
+Run Client
+python3 Client.py
+
+Connects to localhost:5000 by default
+Supports multiple simultaneous clients
+Interactive terminal-based input
+
+Run Tests
+python3 Tests.py
+
+Executes 21 predefined test cases
+Covers valid inputs + error handling
+
+🔄 Protocol Format
+
+CONVERT <CATEGORY> <FROM_UNIT> <TO_UNIT> <VALUE>
+
+Category	Units	Example
+TEMP	C, F	CONVERT TEMP C F 25
+LENGTH	KM, MI	CONVERT LENGTH KM MI 10
+WEIGHT	KG, LB	CONVERT WEIGHT KG LB 5
+CURRENCY	USD, CAD, EUR, GBP	CONVERT CURRENCY USD CAD 100
+
+Case-insensitive commands supported
+Use EXIT or QUIT to disconnect client
+
+💬 Example Session
+
+Enter request: CONVERT TEMP C F 25
+Server response: RESULT 77.00 F
+
+Enter request: CONVERT CURRENCY USD CAD 100
+Server response: RESULT 137.00 CAD
+
+Enter request: CONVERT FOO C F 25
+Server response: ERROR Invalid category
+
+Enter request: EXIT
+Connection closed.
+
+❌ Error Handling
+Error Case	Response
+Unknown category	ERROR Invalid category
+Invalid unit	ERROR Invalid unit
+Invalid numeric value	ERROR Invalid numeric value
+Malformed request	ERROR Malformed request
+📊 Server Logging
+
+Client connected: ('127.0.0.1', 55842)
+Request: CONVERT TEMP C F 25 → RESULT 77.00 F
+Client disconnected: ('127.0.0.1', 55842)
+
+⚠️ Known Limitations
+Host/port are hardcoded constants (no CLI args)
+Currency rates are static (no live API)
+Assumes one request per TCP packet (recv simplification)
+No authentication or encryption (educational use only)
+No graceful shutdown messaging to clients
